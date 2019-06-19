@@ -1,0 +1,27 @@
+/build/
+/.cache/
+/.coverage
+/.eggs/
+/.idea/
+/.mypy_cache/
+/.pytest_cache/
+/.tox/
+/.venv/
+/dist/
+/doc/build/
+/logs/
+/*.egg-info/
+__pycache__/
+*.pyc
+
+# Emacs things
+*~
+\#*\#
+.\#*
+.org-id-locations
+*_archive
+*_flymake.*
+.cask/
+flycheck_*.el
+.projectile
+.dir-locals.el
