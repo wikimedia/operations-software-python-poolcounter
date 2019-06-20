@@ -1,0 +1,12 @@
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Name: python-poolcounter
+Source: https://github.com/wikimedia/operations-software-python-poolcounter
+
+Files: *
+Copyright: 2019 Giuseppe Lavagetto <glavagetto@wikimedia.org>
+           2019 Wikimedia Foundation
+License: Apache-2.0
+
+License: Apache-2.0
+ See /usr/share/common-licenses/Apache-2.0
+

@@ -1,0 +1,5 @@
+python-poolcounter (0.0.1-1) stretch-wikimedia; urgency=medium
+
+  * Initial release.
+
+ -- Giuseppe Lavagetto <glavagetto@wikimedia.org>  Thu, 20 Jun 2019 08:37:25 +0200
