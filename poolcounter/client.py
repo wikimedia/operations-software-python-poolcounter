@@ -208,7 +208,6 @@ class Server:
             raise PoolcounterError('You cannot acquire a new lock while holding one.')
         req = Request(lock_type, key, **kwargs)
         resp = self._command(req)
-        print(resp)
         if resp.status_is(Response.LOCKED):
             # Got the lock
             self.has_lock = True
