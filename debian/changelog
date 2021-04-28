@@ -1,3 +1,10 @@
+python-poolcounter (0.0.2-1+deb11u1) bullseye-wikimedia; urgency=medium
+
+  * Rebuild for bullseye
+  * Add missing build dep on python3-yaml, used in unit tests
+
+ -- Moritz Mühlenhoff <moritz@wikimedia.org>  Wed, 28 Apr 2021 10:20:09 +0200
+
 python-poolcounter (0.0.2-1) buster-wikimedia; urgency=medium
 
   * Remove stray print.
