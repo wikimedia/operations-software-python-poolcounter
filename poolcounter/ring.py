@@ -12,7 +12,7 @@ rigorously tested.
 import bisect
 
 from hashlib import md5
-from typing import Dict, Iterator, List  # pylint: disable=unused-import
+from typing import Dict, Iterator, List
 
 
 def _hash(data: bytes) -> int:
@@ -31,8 +31,8 @@ class HashRing:
 
         """
         self.vnodes = vnodes
-        self._ring = {}  # type: Dict[int, str]
-        self._index = []  # type: List[int]
+        self._ring: Dict[int, str] = {}
+        self._index: List[int] = []
 
     def has_node(self, label: str) -> bool:
         """Check if a node is present."""

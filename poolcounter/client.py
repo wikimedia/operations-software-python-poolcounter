@@ -3,7 +3,7 @@ import logging
 import socket
 
 from enum import Enum
-from typing import Callable, Dict, Optional  # pylint: disable=unused-import
+from typing import Callable, Dict, Optional
 
 from poolcounter.ring import HashRing
 
@@ -11,19 +11,13 @@ from poolcounter.ring import HashRing
 class PoolcounterError(Exception):
     """Custom exception class."""
 
-    pass
-
 
 class PoolcounterQueueError(PoolcounterError):
     """Special exception class if poolcounter has too many workers in queue."""
 
-    pass
-
 
 class PoolcounterTimeoutError(PoolcounterError):
     """Special exception class if poolcounter returns a timeout."""
-
-    pass
 
 
 class RequestType(Enum):
@@ -90,8 +84,8 @@ class Request:
             timeout = self.TIMEOUT
         try:
             self.command = RequestType.command(action, key, concurrency, max_queue, timeout)
-        except AttributeError:
-            raise ValueError('Invalid action code requested: {}'.format(action))
+        except AttributeError as exc:
+            raise ValueError('Invalid action code requested: {}'.format(action)) from exc
 
     def wire(self) -> bytes:
         """Return the wire format of the request.
@@ -131,10 +125,10 @@ class Response:
         # Catch errors early
         if self.msg.startswith('ERROR '):
             raise PoolcounterError('Error talking to poolcounter: {}'.format(self.msg[6:]))
-        elif self.msg == Response.TIMEOUT:
+        if self.msg == Response.TIMEOUT:
             raise PoolcounterTimeoutError(
                 'Too much time waiting for the lock for {}'.format(key))
-        elif self.msg == Response.QUEUE_FULL:
+        if self.msg == Response.QUEUE_FULL:
             raise PoolcounterQueueError(
                 'Too many workers trying to acquire a lock for {}'.format(key))
 
@@ -259,7 +253,7 @@ class Server:
             return Response(req.key, self._stream.recv(4096).decode('utf-8').strip())
         except socket.error as e:
             self.shutdown()
-            raise PoolcounterError('Error communicating with the server: {}'.format(e))
+            raise PoolcounterError('Error communicating with the server: {}'.format(e)) from e
 
     def _connect(self) -> socket.socket:
         """Connect to the server, return the connection socket."""
@@ -269,14 +263,14 @@ class Server:
             stream.connect((self.ipaddr, self.port))
             stream.settimeout(None)
             return stream
-        except ConnectionRefusedError:
+        except ConnectionRefusedError as e:
             stream.close()
             raise PoolcounterError("Cannot connect to server {fqdn}:{port}".format(
-                fqdn=self.fqdn, port=self.port))
-        except TimeoutError:
+                fqdn=self.fqdn, port=self.port)) from e
+        except TimeoutError as e:
             stream.close()
             raise PoolcounterTimeoutError("Connection to {fqdn}:{port} timed out".format(
-                fqdn=self.fqdn, port=self.port))
+                fqdn=self.fqdn, port=self.port)) from e
 
 
 class PoolcounterClient:
@@ -292,7 +286,7 @@ class PoolcounterClient:
 
         """
         self.logger = logger
-        self.backends = {}  # type: Dict[str, 'Server']
+        self.backends: Dict[str, 'Server'] = {}
         self.ring = HashRing()
 
     def add_backend(self, server: Server) -> None:
@@ -409,6 +403,6 @@ class PoolcounterClient:
         try:
             label = self.ring.get_node(key)
             return self.backends[label]
-        except (KeyError, ValueError):
+        except (KeyError, ValueError) as e:
             raise PoolcounterError(
-                'Please add backends calling add_backend() before trying to get a lock')
+                'Please add backends calling add_backend() before trying to get a lock') from e

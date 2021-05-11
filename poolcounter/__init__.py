@@ -30,7 +30,7 @@ def from_yaml(filename: str, logger_name: str = 'poolcounter') -> PoolcounterCli
         A PoolcounterClient instance with all the backends.
 
     """
-    with open(filename, 'r') as fh:
+    with open(filename, 'r', encoding='utf-8') as fh:
         servers = yaml.safe_load(fh)
     backends = [tuple(server.split(':')) for server in servers]
     return new(backends, logger_name)

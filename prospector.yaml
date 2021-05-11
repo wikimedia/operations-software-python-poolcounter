@@ -16,12 +16,12 @@ ignore-paths:
   - logs/
   - examples/
 
-pep8:
+pycodestyle:
   full: true
   options:
     max-line-length: 100
 
-pep257:
+pydocstyle:
   explain: true
   source: true
   disable:
@@ -40,6 +40,7 @@ pylint:
     include-naming-hint: true
     variable-rgx: (([a-z][a-z0-9_]{0,30})|(_[a-z0-9_]*))$
     variable-name-hint: (([a-z][a-z0-9_]{0,30})|(_[a-z0-9_]*))$
+    disable: C0209
 
 pyroma:
   run: true
