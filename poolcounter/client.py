@@ -267,7 +267,7 @@ class Server:
             stream.close()
             raise PoolcounterError("Cannot connect to server {fqdn}:{port}".format(
                 fqdn=self.fqdn, port=self.port)) from e
-        except TimeoutError as e:
+        except (TimeoutError, socket.timeout) as e:
             stream.close()
             raise PoolcounterTimeoutError("Connection to {fqdn}:{port} timed out".format(
                 fqdn=self.fqdn, port=self.port)) from e
