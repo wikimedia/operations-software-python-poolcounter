@@ -297,8 +297,6 @@ class TestPoolcounterClient:
         # Locking fails, so no call to the callback will happen.
         assert self.client.run(client.RequestType.LOCK_EXC, key, mock_cb, errback=mock_eb) is False
         assert mock_cb.call_count == 0
-        # We still tried to clean up
-        assert backend._command.call_count == 2
         mock_eb.assert_called_with(err)
 
     def test_run_release_fail(self):

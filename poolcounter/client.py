@@ -384,9 +384,9 @@ class PoolcounterClient:
             # Try to clear the lock.
             for _ in range(self.lock_release_retry):
                 try:
-                    backend.lock_release(key)
                     if not backend.has_lock:
                         break
+                    backend.lock_release(key)
                 except PoolcounterError as e:
                     self.logger.info("Error trying to release the lock: %s", e)
             if backend.has_lock:
