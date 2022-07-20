@@ -53,7 +53,7 @@ we can use everywhere makes sense.""",
     name='poolcounter',
     packages=find_packages(exclude=['*.tests', '*.tests.*']),
     setup_requires=SETUP_REQUIRES,
-    version='0.0.2',
+    version='0.0.3',
     url='https://github.com/wikimedia/operations-software-python-poolcounter',
     zip_safe=True,
 )
