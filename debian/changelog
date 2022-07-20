@@ -1,3 +1,11 @@
+python-poolcounter (0.0.3-1) buster-wikimedia; urgency=medium
+
+  * Raise connection timeout to 2 seconds
+  * Handle socket.timeout the same way as TimeoutError
+  * Avoid additional errors if connection to poolcounter server fails
+
+ -- Giuseppe Lavagetto <glavagetto@wikimedia.org>  Wed, 20 Jul 2022 16:49:05 +0200
+
 python-poolcounter (0.0.2-1+deb11u1) bullseye-wikimedia; urgency=medium
 
   * Rebuild for bullseye
