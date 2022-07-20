@@ -148,7 +148,7 @@ class Response:
 class Server:
     """Object encapsulating a poolcounter backend connection."""
 
-    connection_timeout = 1
+    connection_timeout = 2
 
     def __init__(self, fqdn: str, port: int = 7531,
                  weight: int = 1, label: Optional[str] = None) -> None:
